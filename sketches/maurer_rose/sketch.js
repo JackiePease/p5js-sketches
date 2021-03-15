@@ -1,8 +1,8 @@
 //let n = 6;
 //let d = 71;
 
-let n = 9;
-let d = 37;
+let n = 6;
+let d = 71;
 
 function setup() {
   angleMode(DEGREES);
@@ -18,7 +18,7 @@ function draw() {
   
   beginShape();
   // for (let i = 0; i < 361; i++) {
-  for (let i = 0; i < 181; i++) {
+  for (let i = 0; i < 361; i++) {
     let k = i * d;
     let r = 200 * sin(n*k);
     let x = r * cos(k);
