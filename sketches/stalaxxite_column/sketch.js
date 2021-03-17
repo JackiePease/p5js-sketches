@@ -1,22 +1,24 @@
-// to create svg of paper folding example, using triangles so that they can be embroidered or laser cut
-// issues with colours being passed to Inkstitch at the moment, probably due to differences between standard and Inkscape svg format
-var diamondsAcross = 9;
-var diamondsUp = 5;
-var triangleWidth = 50;
-var triangleHeight; // actually half triangle height
+var diamondsAcross = 5;
+var diamondsUp = 7;
+;
+var triangleWidth = 70;
+var triangleHeight; // actuall half triangle height
 var spacing = 20;
 var spacingX;
 var spacingY;
+var spacingW;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight, SVG);
+  createCanvas(3000, 3000, SVG);
   triangleHeight = triangleWidth * sqrt(2); // this is for half a triangle
-  spacingX = spacing;
-  spacingY = spacing * sqrt(1 + sq(triangleHeight / triangleWidth));
+  spacingX = spacing/2 // / sqrt(1 + sq(triangleHeight / triangleWidth));
+  spacingY = spacing / sqrt(1 + sq(triangleWidth / triangleHeight));
+  spacingW = spacing * triangleHeight / (triangleWidth * 2)
+
 }
 
 function draw() {
-  translate(width / 7, height / 7);
+  translate(width / 4, height / 4);
   drawLevels(triangleHeight, triangleWidth, diamondsUp, diamondsAcross);
   drawOutline(triangleHeight, triangleWidth, diamondsUp, diamondsAcross);
   save("stalaxxite_column.svg");
@@ -67,26 +69,26 @@ function drawLeft(i, triangleWidth, triangleHeight, diamondsAcross, diamondsUp) 
 }
 
 function drawRight(i, triangleWidth, triangleHeight, diamondsAcross, diamondsUp) {
-  for (let i = diamondsUp - 1;  i > 0; i--) {
+  for (let i = diamondsUp - 1;  i >= 0; i--) {
     let startY = i * (triangleHeight + spacingY);
     let startX = i % 2 * (triangleWidth + (spacingX)) + (diamondsAcross * 2 * (triangleWidth + spacingX));
     vertex(startX, startY);
   }
 }
 
-function drawBase(i, triangleWidth, triangleHeight, diamondsAcross, diamondsUp) {
+function drawBase(i, triangleWidth, triangleHeight, diamondsAcross, diamondsUp) {2
   for (let j = diamondsAcross * 2; j >= 0; j--) {
     let startX = j * (triangleWidth + spacingX) - spacingX/2;
-    let startY = j % 2 * -1 * (triangleHeight + (spacingY)) - spacingY/2
+    startY = j % 2 * -1 * (triangleHeight + spacingW) - spacingW/2;
     vertex(startX, startY);
   }
 }
 
 
 function drawTop(i, triangleWidth, triangleHeight, diamondsAcross, diamondsUp) {
-  for (let j =  0; j < diamondsAcross * 2; j++) {
-    let startX = (j + 1 + (diamondsUp + 1)%2) * (triangleWidth + spacingX) - spacingX/2
-    let startY = j % 2 * -1 * (triangleHeight + spacingY) + (diamondsUp * (triangleHeight + spacingY)) + spacingY/2;
+  for (let j =  0; j <= diamondsAcross * 2; j++) {
+    let startX = (j + (diamondsUp + 1)%2) * (triangleWidth + spacingX) - spacingX/2;
+    startY = (j + 1) % 2 * -1 * (triangleHeight + spacingY) + (diamondsUp * (triangleHeight + spacingY)) + spacingW/2;
     vertex(startX, startY);
   }
 }
