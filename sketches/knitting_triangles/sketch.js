@@ -42,11 +42,11 @@ function setup(){
       tris.push(new Triang(x, y));
     }
   }
-  background('red');
+  background('white');
 }
 
 function draw() {
-  fill(60);
+  fill(0);
   noStroke();
   
   loadPixels()
